@@ -7,6 +7,9 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
+  GlobalKey<FormState> _formKey = GlobalKey();
+  String _email, _password;
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -16,6 +19,7 @@ class _LoginPageState extends State<LoginPage> {
           _background(size),
           _logo(size),
           Form(
+            key: _formKey,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
@@ -163,7 +167,10 @@ class _LoginPageState extends State<LoginPage> {
           enabledBorder: new UnderlineInputBorder(
             borderSide: BorderSide(color: Colors.red, width: 2.0),
           ),
+          errorStyle: TextStyle(
+            color: Colors.black, fontSize: 15, letterSpacing: 2, fontWeight: FontWeight.bold,),
         ),
+        validator: _validateEmail,
       ),
     );
   }
@@ -186,7 +193,10 @@ class _LoginPageState extends State<LoginPage> {
           enabledBorder: new UnderlineInputBorder(
             borderSide: BorderSide(color: Colors.red, width: 2.0),
           ),
+          errorStyle: TextStyle(
+            color: Colors.black, fontSize: 15, letterSpacing: 2, fontWeight: FontWeight.bold,),
         ),
+        validator: _validatePassword,
       ),
     );
   }
@@ -213,7 +223,10 @@ class _LoginPageState extends State<LoginPage> {
     return FlatButton(
       minWidth: size.width * .75,
       padding: EdgeInsets.symmetric(vertical: 12.5),
-      onPressed: () {},
+      onPressed: () { 
+        final bool isValid = _formKey.currentState.validate();
+        print('submit $isValid');
+      },
       child: Text(
         'LOGIN',
         style: TextStyle(
@@ -229,5 +242,21 @@ class _LoginPageState extends State<LoginPage> {
       ),
       color: Colors.white,
     );
+  }
+
+  String _validateEmail(String email) {
+    if (email.isNotEmpty && email.contains("@")) {
+      _email = email;
+      return null;
+    }
+    return "Email invalido";
+  }
+
+  String _validatePassword(String password) {
+    if (password.isNotEmpty && password.length > 5) {
+      _password = password;
+      return null;
+    }
+    return "contraseña invalida";
   }
 }

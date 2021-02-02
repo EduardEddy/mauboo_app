@@ -17,7 +17,6 @@ class MyApp extends StatelessWidget {
         primarySwatch: Colors.pink,
         visualDensity: VisualDensity.adaptivePlatformDensity,
       ),
-      /*home: HomePage(),*/
       initialRoute: '/home',
       getPages: Pages.pages,
     );

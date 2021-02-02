@@ -62,7 +62,7 @@ class HomePage extends StatelessWidget {
     return FlatButton(
       minWidth: size.width * .75,
       padding: EdgeInsets.symmetric(vertical: 12.5),
-      onPressed: () {},
+      onPressed: () => Get.toNamed('/register'),
       child: Text(
         'REGISTRATE',
         style: TextStyle(
